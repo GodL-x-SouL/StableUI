@@ -233,5 +233,5 @@ See the [stable-diffusion.cpp](https://github.com/leejet/stable-diffusion.cpp) p
 
 ## Credits
 
-- **stable-diffusion.cpp** by [leejet](https://github.com/leejet) — The underlying image generation engine powering this project
-- **FlaxeoUI** by [fabricio3g](https://github.com/fabricio3g) — Original inspiration for the UI design
+- **[stable-diffusion.cpp](https://github.com/leejet/stable-diffusion.cpp)** by [leejet](https://github.com/leejet) — The underlying image generation engine powering this project
+- **[FlaxeoUI](https://github.com/fabricio3g/FlaxeoUI)** by [fabricio3g](https://github.com/fabricio3g) — Original inspiration for the UI design
