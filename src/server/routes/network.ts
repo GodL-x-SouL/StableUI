@@ -22,6 +22,14 @@ function currentPort(ctx: AppContext): number {
   return typeof address === 'object' && address ? address.port : ctx.port
 }
 
+function isDevMode(ctx: AppContext): boolean {
+  return ctx.hasFlag('--dev')
+}
+
+function tunnelPort(ctx: AppContext): number {
+  return isDevMode(ctx) ? 5173 : currentPort(ctx)
+}
+
 export function updateLocalNetworkUrl(ctx: AppContext): void {
   const url = `http://${getLocalIP()}:${currentPort(ctx)}`
   ctx.state.networkStatus.local.url = ctx.state.networkStatus.local.enabled ? url : null
@@ -57,6 +65,7 @@ export async function stopNgrok(ctx: AppContext): Promise<void> {
 export async function startCloudflare(ctx: AppContext, port: number): Promise<void> {
   if (!cloudflared) throw new Error('cloudflared module not loaded')
   const cloudflaredBin = cloudflared.bin
+  console.log(`[Cloudflare] Tunneling to port ${port}`)
   ctx.state.cloudflareTunnel = spawn(cloudflaredBin, ['tunnel', '--url', `http://localhost:${port}`], { shell: process.platform === 'win32' })
   ctx.state.networkStatus.cloudflare.enabled = true
   ctx.state.cloudflareTunnel.stderr?.on('data', (data) => {
@@ -99,7 +108,7 @@ export function registerNetworkRoutes(app: Express, ctx: AppContext): void {
   app.post('/api/network/ngrok', async (req, res) => {
     try {
       if (req.body?.enabled) {
-        const url = await startNgrok(ctx, currentPort(ctx), req.body.token || process.env.NGROK_AUTHTOKEN)
+        const url = await startNgrok(ctx, tunnelPort(ctx), req.body.token || process.env.NGROK_AUTHTOKEN)
         res.json({ success: true, url })
       } else {
         await stopNgrok(ctx)
@@ -113,7 +122,7 @@ export function registerNetworkRoutes(app: Express, ctx: AppContext): void {
   app.post('/api/network/cloudflare', async (req, res) => {
     try {
       if (req.body?.enabled) {
-        await startCloudflare(ctx, currentPort(ctx))
+        await startCloudflare(ctx, tunnelPort(ctx))
         setTimeout(() => res.json({ success: true, url: ctx.state.networkStatus.cloudflare.url }), 3000)
       } else {
         await stopCloudflare(ctx)

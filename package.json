@@ -11,7 +11,7 @@
     "typecheck": "npm run typecheck:web && npm run typecheck:server",
     "dev:server": "node build-server.cjs && node out/server/index.cjs",
     "dev:client": "vite --config vite.config.ts",
-    "dev": "node build-server.cjs && concurrently \"node out/server/index.cjs\" \"vite --config vite.config.ts\"",
+    "dev": "node build-server.cjs && concurrently \"node out/server/index.cjs --dev\" \"vite --config vite.config.ts\"",
     "build:client": "vite build --config vite.config.ts",
     "build:server": "node build-server.cjs",
     "build": "npm run build:server && npm run build:client",
