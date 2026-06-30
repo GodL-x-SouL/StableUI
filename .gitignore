@@ -1,0 +1,35 @@
+node_modules
+dist
+out
+build
+temp
+cache
+logs
+
+# Config
+backend-config.json
+
+# Models / Binaries / Output (keep folder structure via .gitkeep)
+models/**/*
+!models/**/.gitkeep
+backend/**/*
+!backend/**/.gitkeep
+output/**/*
+!output/**/.gitkeep
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editor
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+
+# Build artifacts
+build-structure

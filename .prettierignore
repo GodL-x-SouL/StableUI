@@ -1,0 +1,32 @@
+node_modules
+dist
+out
+build
+temp
+cache
+logs
+package-lock.json
+
+# Config files
+tsconfig.json
+tsconfig.*.json
+components.json
+
+# Assets (images, binaries)
+**/*.png
+**/*.jpg
+**/*.jpeg
+**/*.gif
+**/*.ico
+**/*.svg
+**/*.woff
+**/*.woff2
+**/*.ttf
+**/*.eot
+**/*.exe
+**/*.dll
+**/*.so
+**/*.dylib
+
+# Build output
+build-server.cjs
