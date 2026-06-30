@@ -9,8 +9,14 @@ logs
 # Config
 backend-config.json
 
-# Models / Binaries / Output (keep folder structure via .gitkeep)
-models/**/*
+# Ignore all files in models, backend, and output subfolders, but keep the folder structure
+models/**/*.gguf
+models/**/*.safetensors
+models/**/*.pt
+models/**/*.pth
+models/**/*.bin
+models/**/*.ckpt
+models/**/*.onnx
 !models/**/.gitkeep
 backend/**/*
 !backend/**/.gitkeep
